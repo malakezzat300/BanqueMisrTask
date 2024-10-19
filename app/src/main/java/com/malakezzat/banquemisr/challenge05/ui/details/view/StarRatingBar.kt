@@ -22,6 +22,8 @@ import kotlin.math.floor
 import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
+import com.malakezzat.banquemisr.challenge05.ui.theme.MalakEzzatTaskTheme
 
 @Composable
 fun StarRatingBar(rating: Double, modifier: Modifier = Modifier) {
@@ -101,3 +103,7 @@ val HalfStar: ImageVector
     }
 
 private var _halfStar: ImageVector? = null
+
+
+
+

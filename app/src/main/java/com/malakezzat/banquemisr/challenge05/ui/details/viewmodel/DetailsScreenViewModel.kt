@@ -11,13 +11,13 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-class DetailsScreenViewModel(private val repository: MoviesRepository): ViewModel() {
+open class DetailsScreenViewModel(private val repository: MoviesRepository): ViewModel() {
 
     private val _movieDetails = MutableStateFlow<ApiState<MovieDetails>>(ApiState.Loading)
-    val movieDetails: StateFlow<ApiState<MovieDetails>> get() = _movieDetails
+    open val movieDetails: StateFlow<ApiState<MovieDetails>> get() = _movieDetails
 
 
-    fun getMovieDetails(movieId : Long) {
+    open fun getMovieDetails(movieId : Long) {
         viewModelScope.launch {
             repository.getMovieDetails(movieId)
                 .onStart {

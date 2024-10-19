@@ -81,7 +81,6 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
                     Text(
                         text = movie.title,
                         style = MaterialTheme.typography.headlineSmall.copy(
-                            color = Color.White,
                             fontWeight = FontWeight.Bold
                         ),
                         maxLines = 2,
@@ -91,7 +90,6 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
                     Text(
                         text = "\uD83D\uDCC5 ${movie.release_date}",
                         style = MaterialTheme.typography.bodyMedium.copy(
-                            color = Color.LightGray
                         )
                     )
                 }

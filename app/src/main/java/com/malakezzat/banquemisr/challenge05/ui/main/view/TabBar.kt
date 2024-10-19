@@ -33,7 +33,7 @@ fun MovieTabs(nowPlayingScreenViewModel: NowPlayingScreenViewModel,
               popularScreenViewModel: PopularScreenViewModel,
               upcomingScreenViewModel: UpcomingScreenViewModel,
               navController: NavController) {
-    var selectedTabIndex by remember { mutableStateOf(0) }
+    var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val tabs = listOf("Now Playing", "Popular", "Upcoming")
     val icons = listOf(Icons.Filled.Movie, Icons.Filled.Star, Icons.Filled.Upcoming)

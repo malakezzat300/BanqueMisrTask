@@ -8,8 +8,8 @@ import java.lang.IllegalArgumentException
 class UpcomingScreenViewModelFactory(private val repository: MoviesRepository):
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return if (modelClass.isAssignableFrom(UpcomingScreenViewModelFactory::class.java)) {
-            UpcomingScreenViewModelFactory(repository) as T
+        return if (modelClass.isAssignableFrom(UpcomingScreenViewModel::class.java)) {
+            UpcomingScreenViewModel(repository) as T
         } else {
             throw IllegalArgumentException("ViewModel Class not found")
         }

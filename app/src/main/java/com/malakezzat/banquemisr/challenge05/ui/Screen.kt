@@ -6,7 +6,13 @@ import kotlinx.serialization.Serializable
 object Main
 
 @Serializable
-object ListScreen
+object NowPlayingScreen
+
+@Serializable
+object PopularScreen
+
+@Serializable
+object UpcomingScreen
 
 @Serializable
 data class DetailsScreen(

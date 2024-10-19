@@ -42,13 +42,13 @@ class ListScreenViewModel(private val repository: MoviesRepository): ViewModel()
         viewModelScope.launch {
             repository.getPopular()
                 .onStart {
-                    _nowPlaying.value = ApiState.Loading
+                    _popular.value = ApiState.Loading
                 }
                 .catch { e ->
-                    _nowPlaying.value = ApiState.Error(e.message ?: "Unknown error")
+                    _popular.value = ApiState.Error(e.message ?: "Unknown error")
                 }
                 .collect { moviesList ->
-                    _nowPlaying.value = ApiState.Success(moviesList)
+                    _popular.value = ApiState.Success(moviesList)
                 }
         }
     }
@@ -57,13 +57,13 @@ class ListScreenViewModel(private val repository: MoviesRepository): ViewModel()
         viewModelScope.launch {
             repository.getUpcoming()
                 .onStart {
-                    _nowPlaying.value = ApiState.Loading
+                    _upcoming.value = ApiState.Loading
                 }
                 .catch { e ->
-                    _nowPlaying.value = ApiState.Error(e.message ?: "Unknown error")
+                    _upcoming.value = ApiState.Error(e.message ?: "Unknown error")
                 }
                 .collect { moviesList ->
-                    _nowPlaying.value = ApiState.Success(moviesList)
+                    _upcoming.value = ApiState.Success(moviesList)
                 }
         }
     }

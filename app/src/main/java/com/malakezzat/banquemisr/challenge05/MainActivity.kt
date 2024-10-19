@@ -17,12 +17,16 @@ import com.malakezzat.banquemisr.challenge05.data.remote.MoviesRemoteDataSourceI
 import com.malakezzat.banquemisr.challenge05.data.remote.RetrofitHelper
 import com.malakezzat.banquemisr.challenge05.data.repo.MoviesRepositoryImpl
 import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
-import com.malakezzat.banquemisr.challenge05.ui.ListScreen
+import com.malakezzat.banquemisr.challenge05.ui.NowPlayingScreen
 import com.malakezzat.banquemisr.challenge05.ui.Main
+import com.malakezzat.banquemisr.challenge05.ui.PopularScreen
+import com.malakezzat.banquemisr.challenge05.ui.UpcomingScreen
 import com.malakezzat.banquemisr.challenge05.ui.details.view.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenViewModelFactory
 import com.malakezzat.banquemisr.challenge05.ui.list.view.NowPlayingScreen
+import com.malakezzat.banquemisr.challenge05.ui.list.view.PopularScreen
+import com.malakezzat.banquemisr.challenge05.ui.list.view.UpcomingScreen
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModelFactory
 import com.malakezzat.banquemisr.challenge05.ui.main.view.MovieScreen
@@ -53,9 +57,17 @@ class MainActivity : ComponentActivity() {
                         val viewModel : ListScreenViewModel = viewModel(factory = listScreenViewModelFactory)
                         MovieScreen(viewModel,navController)
                     }
-                    composable<ListScreen> {
+                    composable<NowPlayingScreen> {
                         val viewModel : ListScreenViewModel = viewModel(factory = listScreenViewModelFactory)
                         NowPlayingScreen(viewModel,navController)
+                    }
+                    composable<PopularScreen> {
+                        val viewModel : ListScreenViewModel = viewModel(factory = listScreenViewModelFactory)
+                        PopularScreen(viewModel,navController)
+                    }
+                    composable<UpcomingScreen> {
+                        val viewModel : ListScreenViewModel = viewModel(factory = listScreenViewModelFactory)
+                        UpcomingScreen(viewModel,navController)
                     }
                     composable<DetailsScreen> {
                         val args = it.toRoute<DetailsScreen>()

@@ -21,6 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.malakezzat.banquemisr.challenge05.ui.list.view.NowPlayingScreen
+import com.malakezzat.banquemisr.challenge05.ui.list.view.PopularScreen
+import com.malakezzat.banquemisr.challenge05.ui.list.view.UpcomingScreen
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
@@ -78,19 +80,9 @@ fun MovieTabs(viewModel: ListScreenViewModel, navController: NavController) {
 
         when (selectedTabIndex) {
             0 -> NowPlayingScreen(viewModel, navController)
-            1 -> PopularScreen()
-            2 -> UpcomingScreen()
+            1 -> PopularScreen(viewModel, navController)
+            2 -> UpcomingScreen(viewModel, navController)
         }
     }
 }
 
-
-@Composable
-fun PopularScreen() {
-    Text("Popular Movies", modifier = Modifier.padding(16.dp))
-}
-
-@Composable
-fun UpcomingScreen() {
-    Text("Upcoming Movies", modifier = Modifier.padding(16.dp))
-}

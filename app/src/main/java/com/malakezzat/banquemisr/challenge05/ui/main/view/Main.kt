@@ -10,7 +10,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.malakezzat.banquemisr.challenge05.ui.MovieTabs
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,25 +1,26 @@
-package com.malakezzat.banquemisr.challenge05.ui
+package com.malakezzat.banquemisr.challenge05.ui.main.view
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Upcoming
-import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.malakezzat.banquemisr.challenge05.ui.list.view.ListScreen
+import com.malakezzat.banquemisr.challenge05.ui.list.view.NowPlayingScreen
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
@@ -33,32 +34,42 @@ fun MovieTabs(viewModel: ListScreenViewModel, navController: NavController) {
     Column {
         TabRow(
             selectedTabIndex = selectedTabIndex,
-            modifier = Modifier.fillMaxWidth(),
-            indicator = { tabPositions ->
-                TabIndicator(tabPositions = tabPositions, selectedTabIndex = selectedTabIndex)
-            }
+            modifier = Modifier
+                .clip(RoundedCornerShape(50.dp))
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            backgroundColor = Color.White,
+            contentColor = AppColors.Rose
         ) {
             tabs.forEachIndexed { index, title ->
                 val selected = selectedTabIndex == index
-                val tabColor by animateColorAsState(if (selected) AppColors.LavenderDark else Color.Gray,
-                    label = "animate"
+                val tabColor by animateColorAsState(
+                    targetValue = if (selected) AppColors.RoseDark else Color.Gray,
+                    label = "tabColorAnimation"
+                )
+                val iconSize by animateDpAsState(
+                    targetValue = if (selected) 28.dp else 24.dp,
+                    label = "iconSizeAnimation"
                 )
 
                 Tab(
                     selected = selected,
                     onClick = { selectedTabIndex = index },
-                    icon = {
-                        Icon(
-                            imageVector = icons[index],
-                            contentDescription = title,
-                            tint = tabColor
-                        )
-                    },
+                    modifier = Modifier.padding(vertical = 8.dp),
                     text = {
                         Text(
                             text = title,
                             color = tabColor,
-                            fontSize = 12.sp
+                            fontSize = 12.sp,
+                            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+                        )
+                    },
+                    icon = {
+                        Icon(
+                            imageVector = icons[index],
+                            contentDescription = title,
+                            modifier = Modifier.size(iconSize),
+                            tint = tabColor
                         )
                     }
                 )
@@ -66,24 +77,13 @@ fun MovieTabs(viewModel: ListScreenViewModel, navController: NavController) {
         }
 
         when (selectedTabIndex) {
-            0 -> ListScreen(viewModel,navController)
+            0 -> NowPlayingScreen(viewModel, navController)
             1 -> PopularScreen()
             2 -> UpcomingScreen()
         }
     }
 }
 
-@Composable
-fun TabIndicator(tabPositions: List<TabPosition>, selectedTabIndex: Int) {
-    val tabPosition = tabPositions[selectedTabIndex]
-    val color = AppColors.Lavender
-
-    TabRowDefaults.Indicator(
-        Modifier.tabIndicatorOffset(tabPosition),
-        height = 4.dp,
-        color = color,
-    )
-}
 
 @Composable
 fun PopularScreen() {

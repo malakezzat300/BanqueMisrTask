@@ -38,9 +38,11 @@ import com.malakezzat.banquemisr.challenge05.data.remote.RetrofitHelper
 import com.malakezzat.banquemisr.challenge05.data.repo.MoviesRepositoryImpl
 import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.ListScreen
+import com.malakezzat.banquemisr.challenge05.ui.Main
 import com.malakezzat.banquemisr.challenge05.ui.list.view.ListScreen
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModelFactory
+import com.malakezzat.banquemisr.challenge05.ui.main.view.MovieScreen
 import com.malakezzat.banquemisr.challenge05.ui.theme.MalakEzzatTaskTheme
 import kotlinx.serialization.Serializable
 
@@ -61,8 +63,12 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = ListScreen
+                    startDestination = Main
                 ) {
+                    composable<Main> {
+                        val viewModel : ListScreenViewModel = viewModel(factory = listScreenViewModelFactory)
+                        MovieScreen(viewModel,navController)
+                    }
                     composable<ListScreen> {
                         val viewModel : ListScreenViewModel = viewModel(factory = listScreenViewModelFactory)
                         ListScreen(viewModel,navController)

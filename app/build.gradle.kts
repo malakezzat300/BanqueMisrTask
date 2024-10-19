@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+    id ("org.jetbrains.kotlin.plugin.serialization") version ("2.0.20")
+    id("org.jetbrains.kotlin.plugin.compose") version ("2.0.20")
 }
 
 android {
@@ -77,7 +79,7 @@ dependencies {
     // Jetpack Compose
     implementation ("androidx.compose.ui:ui:1.7.4")
     implementation ("androidx.compose.material:material:1.7.4")
-    implementation ("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation ("androidx.navigation:navigation-compose:2.8.3")
 
     // Coil for images
     implementation ("io.coil-kt:coil-compose:2.0.0")
@@ -89,4 +91,7 @@ dependencies {
     // Unit Testing
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+
+    //NavController
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 }

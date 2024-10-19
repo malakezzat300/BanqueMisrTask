@@ -1,4 +1,4 @@
-package com.malakezzat.banquemisr.challenge05.ui.list.view
+package com.malakezzat.banquemisr.challenge05.ui.lists.view
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.malakezzat.banquemisr.challenge05.R
 
 @Composable
 fun ImageWithShimmer(imageUrl: String, contentDescription: String, modifier: Modifier = Modifier) {

@@ -1,4 +1,4 @@
-package com.malakezzat.banquemisr.challenge05.ui.list.view
+package com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.view
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.malakezzat.banquemisr.challenge05.model.Result
+import com.malakezzat.banquemisr.challenge05.ui.lists.view.ImageWithShimmer
 
 @Composable
 fun MovieItem(movie: Result, onClick: (Long) -> Unit) {

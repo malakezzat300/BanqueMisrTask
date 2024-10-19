@@ -1,4 +1,4 @@
-package com.malakezzat.banquemisr.challenge05.ui.list.view
+package com.malakezzat.banquemisr.challenge05.ui.lists.popular.view
 
 import android.util.Log
 import android.widget.Toast
@@ -30,14 +30,14 @@ import androidx.navigation.NavController
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
-import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
 private const val TAG = "PopularScreen"
 
 @Composable
-fun PopularScreen(viewModel: ListScreenViewModel,
-                     navController: NavController
+fun PopularScreen(viewModel: PopularScreenViewModel,
+                  navController: NavController
 ){
     val context = LocalContext.current
     val popularState by viewModel.popular.collectAsState()

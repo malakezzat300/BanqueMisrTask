@@ -47,7 +47,7 @@ import com.malakezzat.banquemisr.challenge05.Utils.Details
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.model.MovieDetails
 import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenViewModel
-import com.malakezzat.banquemisr.challenge05.ui.list.view.ImageWithShimmer
+import com.malakezzat.banquemisr.challenge05.ui.lists.view.ImageWithShimmer
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 import kotlinx.coroutines.delay
 

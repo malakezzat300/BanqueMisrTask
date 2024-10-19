@@ -10,11 +10,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.viewmodel.UpcomingScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieScreen(viewModel: ListScreenViewModel,navController: NavController) {
+fun MovieScreen(nowPlayingScreenViewModel: NowPlayingScreenViewModel,
+                popularScreenViewModel: PopularScreenViewModel,
+                upcomingScreenViewModel: UpcomingScreenViewModel,
+                navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Movies") })
@@ -26,7 +31,10 @@ fun MovieScreen(viewModel: ListScreenViewModel,navController: NavController) {
                     .padding(paddingValues)
 
             ) {
-                MovieTabs(viewModel,navController)
+                MovieTabs(nowPlayingScreenViewModel,
+                    popularScreenViewModel,
+                    upcomingScreenViewModel,
+                    navController)
             }
         }
     )

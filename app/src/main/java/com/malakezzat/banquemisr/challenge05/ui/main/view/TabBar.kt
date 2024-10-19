@@ -20,14 +20,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.malakezzat.banquemisr.challenge05.ui.list.view.NowPlayingScreen
-import com.malakezzat.banquemisr.challenge05.ui.list.view.PopularScreen
-import com.malakezzat.banquemisr.challenge05.ui.list.view.UpcomingScreen
-import com.malakezzat.banquemisr.challenge05.ui.list.viewmodel.ListScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.view.NowPlayingScreen
+import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.popular.view.PopularScreen
+import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
+import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.view.UpcomingScreen
+import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.viewmodel.UpcomingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
 @Composable
-fun MovieTabs(viewModel: ListScreenViewModel, navController: NavController) {
+fun MovieTabs(nowPlayingScreenViewModel: NowPlayingScreenViewModel,
+              popularScreenViewModel: PopularScreenViewModel,
+              upcomingScreenViewModel: UpcomingScreenViewModel,
+              navController: NavController) {
     var selectedTabIndex by remember { mutableStateOf(0) }
 
     val tabs = listOf("Now Playing", "Popular", "Upcoming")
@@ -79,9 +84,9 @@ fun MovieTabs(viewModel: ListScreenViewModel, navController: NavController) {
         }
 
         when (selectedTabIndex) {
-            0 -> NowPlayingScreen(viewModel, navController)
-            1 -> PopularScreen(viewModel, navController)
-            2 -> UpcomingScreen(viewModel, navController)
+            0 -> NowPlayingScreen(nowPlayingScreenViewModel, navController)
+            1 -> PopularScreen(popularScreenViewModel, navController)
+            2 -> UpcomingScreen(upcomingScreenViewModel, navController)
         }
     }
 }

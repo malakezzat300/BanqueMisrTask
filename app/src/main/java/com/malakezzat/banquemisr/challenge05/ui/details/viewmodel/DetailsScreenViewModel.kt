@@ -3,12 +3,10 @@ package com.malakezzat.banquemisr.challenge05.ui.details.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.malakezzat.banquemisr.challenge05.Utils.Converter
-import com.malakezzat.banquemisr.challenge05.data.local.MovieDB
 import com.malakezzat.banquemisr.challenge05.data.local.MovieDetailsDB
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.data.repo.MoviesRepository
 import com.malakezzat.banquemisr.challenge05.model.MovieDetails
-import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch

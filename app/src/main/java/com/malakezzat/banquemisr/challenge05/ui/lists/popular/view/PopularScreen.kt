@@ -41,7 +41,6 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
-import kotlinx.coroutines.delay
 
 private const val TAG = "PopularScreen"
 

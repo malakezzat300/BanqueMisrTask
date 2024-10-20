@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -35,8 +34,6 @@ import androidx.compose.ui.text.style.TextMotion
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.malakezzat.banquemisr.challenge05.Utils.NetworkUtils
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.model.MovieResponse
@@ -44,8 +41,6 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
 
 private const val TAG = "NowPlayingScreen"
 

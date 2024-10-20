@@ -41,7 +41,6 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.viewmodel.UpcomingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
-import kotlinx.coroutines.delay
 
 private const val TAG = "UpcomingScreen"
 

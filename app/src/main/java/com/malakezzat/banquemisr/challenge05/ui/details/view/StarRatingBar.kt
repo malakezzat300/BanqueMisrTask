@@ -15,15 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.malakezzat.banquemisr.challenge05.R
 import kotlin.math.floor
 import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.materialPath
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.tooling.preview.Preview
-import com.malakezzat.banquemisr.challenge05.ui.theme.MalakEzzatTaskTheme
+
 
 @Composable
 fun StarRatingBar(rating: Double, modifier: Modifier = Modifier) {

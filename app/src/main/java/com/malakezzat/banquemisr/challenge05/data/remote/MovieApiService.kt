@@ -4,7 +4,6 @@ import com.malakezzat.banquemisr.challenge05.model.MovieDetails
 import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface MovieApiService {
 

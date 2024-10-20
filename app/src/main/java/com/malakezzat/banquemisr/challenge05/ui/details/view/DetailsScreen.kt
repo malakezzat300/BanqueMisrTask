@@ -92,6 +92,7 @@ fun DetailsScreen(
             Log.i(TAG, "Local State Loading")
         }
         is ApiState.Success -> {
+            Log.i(TAG, "Local State Success")
             val localData = (movieDetailsLocalState as ApiState.Success).data
             if (localData != null && localData != MovieDetailsDB()) {
                 movieDetailsResponse =
@@ -101,8 +102,9 @@ fun DetailsScreen(
                 showContent = true
                 Log.i(TAG, "Local State Success: $movieDetailsResponse")
             } else if (isNetworkAvailable) {
-                if (isNetworkAvailable && !isLoading) {
+                LaunchedEffect(Unit) {
                     viewModel.getMovieDetails(movieId)
+                    Log.i(TAG, "api State call")
                 }
             } else {
                 isLoading = false

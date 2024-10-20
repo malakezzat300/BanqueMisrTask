@@ -109,4 +109,7 @@ dependencies {
     //SwipeRefresh
     implementation ("com.google.accompanist:accompanist-swiperefresh:0.30.1")
 
+    //lottie
+    implementation ("com.airbnb.android:lottie:5.0.3")
+    implementation ("com.airbnb.android:lottie-compose:5.0.3")
 }

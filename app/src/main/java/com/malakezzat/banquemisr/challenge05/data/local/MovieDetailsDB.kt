@@ -5,13 +5,13 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "movie_details_list")
 data class MovieDetailsDB(
-    @PrimaryKey val id: Long,
-    val title: String,
-    val overview: String?,
-    val posterPath: String,
-    val genres: String,
-    val runtime: Int?,
-    val releaseDate: String?,
-    val voteAverage: Double,
-    val voteCount: Int
+    @PrimaryKey val id: Long = 0L,
+    val title: String = "",
+    val overview: String? = "",
+    val posterPath: String = "",
+    val genres: String = "",
+    val runtime: Long? = 0L ,
+    val releaseDate: String? = "",
+    val voteAverage: Double = 0.0,
+    val voteCount: Long = 0L
 )

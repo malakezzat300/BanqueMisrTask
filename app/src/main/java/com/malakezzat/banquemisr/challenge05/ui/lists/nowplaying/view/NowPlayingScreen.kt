@@ -3,12 +3,20 @@ package com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.view
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.pullRefreshIndicatorTransform
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,14 +35,19 @@ import androidx.compose.ui.text.style.TextMotion
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.malakezzat.banquemisr.challenge05.Utils.NetworkUtils
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
+import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
 private const val TAG = "NowPlayingScreen"
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
                      navController: NavController){
@@ -43,11 +56,27 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
     var nowPlayingResponse by remember { mutableStateOf(MovieResponse()) }
     var isLoading by remember { mutableStateOf(false) }
 
+    val isRefreshing by viewModel.isRefreshing.collectAsState(initial = false)
+    val pullRefreshState = rememberPullRefreshState( refreshing = isRefreshing , onRefresh =  {
+        viewModel.refreshNowPlaying()
+    })
+    val isNetworkAvailable = NetworkUtils.isNetworkAvailable(context)
+
     LaunchedEffect(Unit) {
-        viewModel.getNowPlaying()
+        if(isNetworkAvailable) {
+            viewModel.getNowPlaying()
+        } else {
+            viewModel.getNowPlayingLocal()
+        }
     }
 
-    when(nowPlayingState){
+    LaunchedEffect(isNetworkAvailable) {
+        if(!isNetworkAvailable) {
+            viewModel.getNowPlayingLocal()
+        }
+    }
+
+    when (nowPlayingState) {
         is ApiState.Error -> {
             isLoading = false
             Log.i(TAG, "ListScreen: ${(nowPlayingState as ApiState.Error).message}")
@@ -62,40 +91,47 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
         }
     }
 
-    if(nowPlayingResponse.results.isNotEmpty() && !isLoading) {
-        Text(
-            "Now Playing \uD83D\uDCFD",
-            modifier = Modifier.padding(8.dp),
-            style = MaterialTheme.typography.headlineSmall.copy(
-                fontWeight = FontWeight.Bold,
-                textMotion = TextMotion.Animated,
-
-            ),
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        LazyRow {
-
-                items(nowPlayingResponse.results.size) { movie ->
-                    MovieItem(nowPlayingResponse.results[movie]){ movieId ->
-                        navController.navigate(DetailsScreen(movieId))
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pullRefresh(pullRefreshState)
+            .verticalScroll(rememberScrollState())
+    ) {
+        if (nowPlayingResponse.results.isNotEmpty() && !isLoading) {
+            Column {
+                Text(
+                    "Now Playing \uD83D\uDCFD",
+                    modifier = Modifier.padding(8.dp),
+                    style = MaterialTheme.typography.headlineSmall.copy(
+                        fontWeight = FontWeight.Bold,
+                        textMotion = TextMotion.Animated,
+                    ),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                LazyRow {
+                    items(nowPlayingResponse.results.size) { movie ->
+                        MovieItem(nowPlayingResponse.results[movie]) { movieId ->
+                            navController.navigate(DetailsScreen(movieId))
+                        }
                     }
                 }
+            }
+        } else if (!isNetworkAvailable && !isLoading) {
+            NoInternetScreen()
+        } else if (isLoading) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(color = AppColors.Rose)
+            }
         }
-    } else {
-        Column(
-            modifier = Modifier
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            CircularProgressIndicator(
-                color = AppColors.Rose
-            )
-        }
+        PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }
-
 
 }
 

@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 data class MovieDB(
     @PrimaryKey val id: Long,
     val title: String,
+    val poster_path: String,
     val releaseDate: String?,
     var type : String
 )

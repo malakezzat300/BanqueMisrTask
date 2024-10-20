@@ -12,6 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import com.malakezzat.banquemisr.challenge05.ui.theme.MalakEzzatTaskTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.toRoute
+import com.malakezzat.banquemisr.challenge05.data.local.AppDatabase
+import com.malakezzat.banquemisr.challenge05.data.local.MoviesLocalDataSourceImpl
 import com.malakezzat.banquemisr.challenge05.data.remote.MovieApiService
 import com.malakezzat.banquemisr.challenge05.data.remote.MoviesRemoteDataSourceImpl
 import com.malakezzat.banquemisr.challenge05.data.remote.RetrofitHelper
@@ -39,7 +41,8 @@ class MainActivity : ComponentActivity() {
     private val repo by lazy {
         MoviesRepositoryImpl.getInstance(
             MoviesRemoteDataSourceImpl.
-            getInstance( RetrofitHelper.getInstance().create(MovieApiService::class.java)))
+            getInstance( RetrofitHelper.getInstance().create(MovieApiService::class.java)),
+            MoviesLocalDataSourceImpl(AppDatabase.getInstance(applicationContext)))
     }
     private val nowPlayingScreenViewModelFactory by lazy {
         NowPlayingScreenViewModelFactory(repo)

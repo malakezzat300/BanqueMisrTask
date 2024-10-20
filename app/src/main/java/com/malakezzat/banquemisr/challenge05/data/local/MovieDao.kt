@@ -14,12 +14,12 @@ interface MovieDao {
     suspend fun insertMovies(movieDBList: List<MovieDB>)
 
     @Query("SELECT * FROM MOVIE_LIST WHERE type = 'nowPlaying'")
-    suspend fun getNowPlayingMovies(): List<MovieDB>?
+    suspend fun getNowPlayingMovies(): List<MovieDB>
 
     @Query("SELECT * FROM MOVIE_LIST WHERE type = 'popular'")
-    suspend fun getPopularMovies(): List<MovieDB>?
+    suspend fun getPopularMovies(): List<MovieDB>
 
     @Query("SELECT * FROM MOVIE_LIST WHERE type = 'upcoming'")
-    suspend fun getUpcomingMovies(): List<MovieDB>?
+    suspend fun getUpcomingMovies(): List<MovieDB>
 
 }

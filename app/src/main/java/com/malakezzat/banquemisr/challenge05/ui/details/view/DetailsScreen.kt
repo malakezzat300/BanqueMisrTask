@@ -151,7 +151,7 @@ fun DetailsScreen(
                         exit = slideOutHorizontally(targetOffsetX = { it })
                     ) {
                         ImageWithShimmer(
-                            imageUrl = "$baseUrlImages${movieDetailsResponse.poster_path.substring(1)}",
+                            imageUrl = "$baseUrlImages${movieDetailsResponse.poster_path.substring(1)}" ?: " ",
                             contentDescription = "movie.title",
                             modifier = Modifier
                                 .clip(RoundedCornerShape(16.dp))

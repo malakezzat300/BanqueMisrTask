@@ -24,12 +24,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.malakezzat.banquemisr.challenge05.R
 
 @Composable
 fun ImageWithShimmer(imageUrl: String, contentDescription: String, modifier: Modifier = Modifier) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(imageUrl)
+            .error(R.drawable.ic_launcher_foreground)
             .crossfade(true)
             .build()
     )

@@ -44,6 +44,8 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 
 private const val TAG = "NowPlayingScreen"
 
@@ -54,24 +56,22 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
     val context = LocalContext.current
     val nowPlayingState by viewModel.nowPlaying.collectAsState()
     var nowPlayingResponse by remember { mutableStateOf(MovieResponse()) }
-    var isLoading by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(true) }
+    val isNetworkAvailable = NetworkUtils.isNetworkAvailable(context)
 
     val isRefreshing by viewModel.isRefreshing.collectAsState(initial = false)
     val pullRefreshState = rememberPullRefreshState( refreshing = isRefreshing , onRefresh =  {
-        viewModel.refreshNowPlaying()
+        if(isNetworkAvailable) {
+            viewModel.refreshNowPlaying()
+        } else {
+            viewModel.getNowPlayingLocal()
+        }
     })
-    val isNetworkAvailable = NetworkUtils.isNetworkAvailable(context)
 
     LaunchedEffect(Unit) {
         if(isNetworkAvailable) {
             viewModel.getNowPlaying()
         } else {
-            viewModel.getNowPlayingLocal()
-        }
-    }
-
-    LaunchedEffect(isNetworkAvailable) {
-        if(!isNetworkAvailable) {
             viewModel.getNowPlayingLocal()
         }
     }
@@ -95,9 +95,21 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
         modifier = Modifier
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
-        if (nowPlayingResponse.results.isNotEmpty() && !isLoading) {
+        if (isLoading) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator(
+                    color = AppColors.Rose
+                )
+            }
+        } else if (nowPlayingResponse.results.isNotEmpty()) {
             Column {
                 Text(
                     "Now Playing \uD83D\uDCFD",
@@ -118,17 +130,11 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
                     }
                 }
             }
-        } else if (!isNetworkAvailable && !isLoading) {
-            NoInternetScreen()
-        } else if (isLoading) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                CircularProgressIndicator(color = AppColors.Rose)
+        } else if (!isNetworkAvailable) {
+            LaunchedEffect(Unit) {
+                delay(200)
             }
+            NoInternetScreen(Modifier.align(Alignment.Center))
         }
         PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }

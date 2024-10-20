@@ -9,13 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.airbnb.lottie.compose.*
 import com.malakezzat.banquemisr.challenge05.R
+import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
 @Composable
-fun NoInternetScreen() {
+fun NoInternetScreen(modifier: Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .padding(top = 48.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -34,7 +36,7 @@ fun NoInternetScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "No Internet Connection")
-        Text(text = "Please check your connection and try again.")
+        Text(text = "No Internet Connection", color = AppColors.Rose)
+        Text(text = "Please check your connection and try again.", color = AppColors.Rose)
     }
 }

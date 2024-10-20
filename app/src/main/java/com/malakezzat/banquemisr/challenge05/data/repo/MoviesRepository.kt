@@ -19,5 +19,5 @@ interface MoviesRepository {
     suspend fun getUpcomingMovies(): Flow<List<MovieDB>>?
 
     suspend fun insertMovieDetails(movieDetailsDB: MovieDetailsDB)
-    suspend fun getMovieDetailsById(id: Int): Flow<MovieDetailsDB>?
+    suspend fun getMovieDetailsById(id: Long): Flow<MovieDetailsDB>?
 }

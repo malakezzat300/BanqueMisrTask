@@ -70,7 +70,7 @@ class MoviesRepositoryImpl private constructor(
         return moviesLocalDataSource.insertMovieDetails(movieDetailsDB)
     }
 
-    override suspend fun getMovieDetailsById(id: Int): Flow<MovieDetailsDB>? {
+    override suspend fun getMovieDetailsById(id: Long): Flow<MovieDetailsDB>? {
         return moviesLocalDataSource.getMovieDetailsById(id)
     }
 

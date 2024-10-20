@@ -128,10 +128,7 @@ fun PopularScreen(viewModel: PopularScreenViewModel,
                     }
                 }
             }
-        } else if (!isNetworkAvailable) {
-            LaunchedEffect(Unit) {
-                delay(200)
-            }
+        } else if (!isNetworkAvailable && !isLoading) {
             NoInternetScreen(Modifier.align(Alignment.Center))
         }
         PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))

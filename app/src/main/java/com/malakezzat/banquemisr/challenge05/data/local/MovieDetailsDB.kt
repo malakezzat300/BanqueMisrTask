@@ -8,7 +8,7 @@ data class MovieDetailsDB(
     @PrimaryKey val id: Long = 0L,
     val title: String = "",
     val overview: String? = "",
-    val posterPath: String = "",
+    val posterPath: String = " ",
     val genres: String = "",
     val runtime: Long? = 0L ,
     val releaseDate: String? = "",

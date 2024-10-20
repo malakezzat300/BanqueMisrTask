@@ -1,15 +1,8 @@
 package com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.malakezzat.banquemisr.challenge05.Utils.Converter
-import com.malakezzat.banquemisr.challenge05.Utils.NetworkUtils
 import com.malakezzat.banquemisr.challenge05.data.local.MovieDB
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.data.repo.MoviesRepository
@@ -78,8 +71,4 @@ class NowPlayingScreenViewModel(private val repository: MoviesRepository): ViewM
             _isRefreshing.value = false
         }
     }
-
-
-
-
 }

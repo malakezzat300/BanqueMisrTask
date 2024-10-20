@@ -71,6 +71,4 @@ class PopularScreenViewModel(private val repository: MoviesRepository): ViewMode
             _isRefreshing.value = false
         }
     }
-
-
 }

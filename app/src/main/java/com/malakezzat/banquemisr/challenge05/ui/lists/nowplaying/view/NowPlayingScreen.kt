@@ -51,8 +51,10 @@ private const val TAG = "NowPlayingScreen"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
-                     navController: NavController){
+fun NowPlayingScreen(
+    viewModel: NowPlayingScreenViewModel,
+    navController: NavController
+) {
     val context = LocalContext.current
     val nowPlayingState by viewModel.nowPlaying.collectAsState()
     var nowPlayingResponse by remember { mutableStateOf(MovieResponse()) }
@@ -60,8 +62,8 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
     val isNetworkAvailable = NetworkUtils.isNetworkAvailable(context)
 
     val isRefreshing by viewModel.isRefreshing.collectAsState(initial = false)
-    val pullRefreshState = rememberPullRefreshState( refreshing = isRefreshing , onRefresh =  {
-        if(isNetworkAvailable) {
+    val pullRefreshState = rememberPullRefreshState(refreshing = isRefreshing, onRefresh = {
+        if (isNetworkAvailable) {
             viewModel.refreshNowPlaying()
         } else {
             viewModel.getNowPlayingLocal()
@@ -69,9 +71,12 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
     })
 
     LaunchedEffect(Unit) {
-        if(isNetworkAvailable) {
+        Log.i(TAG, "Network Available: $isNetworkAvailable")
+        if (isNetworkAvailable) {
+            Log.i(TAG, "Fetching now playing movies from API.")
             viewModel.getNowPlaying()
         } else {
+            Log.i(TAG, "Fetching now playing movies from local storage due to no network.")
             viewModel.getNowPlayingLocal()
         }
     }
@@ -79,15 +84,17 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
     when (nowPlayingState) {
         is ApiState.Error -> {
             isLoading = false
-            Log.i(TAG, "ListScreen: ${(nowPlayingState as ApiState.Error).message}")
+            Log.i(TAG, "NowPlayingScreen: ${(nowPlayingState as ApiState.Error).message}")
             Toast.makeText(context, "Error Fetching Movies", Toast.LENGTH_SHORT).show()
         }
         ApiState.Loading -> {
             isLoading = true
+            Log.i(TAG, "NowPlayingScreen: Loading...")
         }
         is ApiState.Success -> {
             isLoading = false
             nowPlayingResponse = (nowPlayingState as ApiState.Success).data
+            Log.i(TAG, "NowPlayingScreen: Loaded ${nowPlayingResponse.results.size} movies")
         }
     }
 
@@ -95,7 +102,7 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
         modifier = Modifier
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
     ) {
         if (isLoading) {
             Column(
@@ -105,11 +112,10 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                CircularProgressIndicator(
-                    color = AppColors.Rose
-                )
+                CircularProgressIndicator(color = AppColors.Rose)
             }
-        } else if (nowPlayingResponse.results.isNotEmpty()) {
+        }
+        else if (nowPlayingResponse.results.isNotEmpty()) {
             Column {
                 Text(
                     "Now Playing \uD83D\uDCFD",
@@ -130,15 +136,15 @@ fun NowPlayingScreen(viewModel: NowPlayingScreenViewModel,
                     }
                 }
             }
-        } else if (!isNetworkAvailable) {
-            LaunchedEffect(Unit) {
-                delay(200)
-            }
-            NoInternetScreen(Modifier.align(Alignment.Center))
         }
+        else if (!isNetworkAvailable) {
+            Log.i(TAG, "NowPlayingScreen: No Internet")
+            NoInternetScreen(modifier = Modifier.align(Alignment.Center))
+        }
+
         PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }
-
 }
+
 
 

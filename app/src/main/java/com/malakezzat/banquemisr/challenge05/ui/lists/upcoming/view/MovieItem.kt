@@ -1,6 +1,8 @@
 package com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.view
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -41,21 +45,30 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
 
     val visible = remember { mutableStateOf(false) }
 
+    val scale = remember { Animatable(0.5f) }
+    val offsetY = remember { Animatable(50f) }
+
     LaunchedEffect(Unit) {
         visible.value = true
+        scale.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(durationMillis = 700, easing = FastOutSlowInEasing)
+        )
+        offsetY.animateTo(
+            targetValue = 0f,
+            animationSpec = tween(durationMillis = 700, easing = FastOutSlowInEasing)
+        )
     }
 
-    AnimatedVisibility(
-        visible = visible.value,
-        enter = fadeIn(animationSpec = tween(700)) + expandVertically(animationSpec = tween(700)) + scaleIn(animationSpec = tween(700)),
-        exit = fadeOut(animationSpec = tween(300)) + shrinkVertically(animationSpec = tween(300)) + scaleOut(animationSpec = tween(300))
-    ) {
+    if (visible.value) {
         Card(
             modifier = Modifier
                 .padding(8.dp)
                 .width(250.dp)
                 .clickable { onClick(movie.id) }
-                .shadow(6.dp),
+                .shadow(6.dp)
+                .offset(y = offsetY.value.dp)
+                .graphicsLayer(scaleX = scale.value, scaleY = scale.value),
             elevation = CardDefaults.cardElevation(12.dp),
             shape = RoundedCornerShape(16.dp),
         ) {
@@ -90,8 +103,7 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "\uD83D\uDCC5 ${movie.release_date}",
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                        )
+                        style = MaterialTheme.typography.bodyMedium.copy()
                     )
                 }
             }

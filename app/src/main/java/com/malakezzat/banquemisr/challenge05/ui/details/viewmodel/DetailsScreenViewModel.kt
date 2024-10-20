@@ -2,9 +2,13 @@ package com.malakezzat.banquemisr.challenge05.ui.details.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.malakezzat.banquemisr.challenge05.Utils.Converter
+import com.malakezzat.banquemisr.challenge05.data.local.MovieDB
+import com.malakezzat.banquemisr.challenge05.data.local.MovieDetailsDB
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.data.repo.MoviesRepository
 import com.malakezzat.banquemisr.challenge05.model.MovieDetails
+import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -16,6 +20,22 @@ open class DetailsScreenViewModel(private val repository: MoviesRepository): Vie
     private val _movieDetails = MutableStateFlow<ApiState<MovieDetails>>(ApiState.Loading)
     open val movieDetails: StateFlow<ApiState<MovieDetails>> get() = _movieDetails
 
+    private val _movieDetailsLocal = MutableStateFlow<ApiState<MovieDetailsDB>>(ApiState.Loading)
+    open val movieDetailsLocal: StateFlow<ApiState<MovieDetailsDB>> get() = _movieDetailsLocal
+
+    fun getMovieDetailsLocal(movieId : Long) {
+        viewModelScope.launch {
+            try {
+                var moviesDetails: MovieDetailsDB
+                repository.getMovieDetailsById(movieId)?.collect{ movies ->
+                    moviesDetails = movies
+                    _movieDetailsLocal.value = ApiState.Success(moviesDetails)
+                }
+            } catch (e: Exception) {
+                _movieDetailsLocal.value = ApiState.Error(e.message ?: "Unknown error")
+            }
+        }
+    }
 
     open fun getMovieDetails(movieId : Long) {
         viewModelScope.launch {
@@ -28,6 +48,7 @@ open class DetailsScreenViewModel(private val repository: MoviesRepository): Vie
                 }
                 .collect { movieDetails ->
                     _movieDetails.value = ApiState.Success(movieDetails)
+                    repository.insertMovieDetails(Converter.convertMovieDetailsToMovieDetailsDB(movieDetails))
                 }
         }
     }

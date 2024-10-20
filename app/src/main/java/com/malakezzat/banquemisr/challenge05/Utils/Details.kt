@@ -12,4 +12,10 @@ object Details {
     fun formatGenres(genres: List<Genre>): String {
         return genres.joinToString(" - ") { it.name }
     }
+
+    fun parseGenres(genresString: String): List<Genre> {
+        return genresString.split(" - ").map { genreName ->
+            Genre(id = 0L, name = genreName)
+        }
+    }
 }

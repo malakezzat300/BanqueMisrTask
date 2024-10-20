@@ -11,6 +11,6 @@ interface MovieDetailsDao {
     suspend fun insertMovieDetails(movieDetailsDB: MovieDetailsDB)
 
     @Query("SELECT * FROM MOVIE_DETAILS_LIST WHERE id = :id")
-    suspend fun getMovieDetailsById(id: Int): MovieDetailsDB
+    suspend fun getMovieDetailsById(id: Long): MovieDetailsDB
 
 }

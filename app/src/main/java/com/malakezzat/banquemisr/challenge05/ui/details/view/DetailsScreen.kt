@@ -43,9 +43,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.malakezzat.banquemisr.challenge05.Utils.Converter
-import com.malakezzat.banquemisr.challenge05.Utils.Details
-import com.malakezzat.banquemisr.challenge05.Utils.NetworkUtils
+import com.malakezzat.banquemisr.challenge05.utils.Converter
+import com.malakezzat.banquemisr.challenge05.utils.Details
+import com.malakezzat.banquemisr.challenge05.utils.NetworkUtils
 import com.malakezzat.banquemisr.challenge05.data.local.MovieDetailsDB
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.model.MovieDetails

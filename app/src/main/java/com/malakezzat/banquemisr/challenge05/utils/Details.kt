@@ -1,4 +1,4 @@
-package com.malakezzat.banquemisr.challenge05.Utils
+package com.malakezzat.banquemisr.challenge05.utils
 
 import com.malakezzat.banquemisr.challenge05.model.Genre
 

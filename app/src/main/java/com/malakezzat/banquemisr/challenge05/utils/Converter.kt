@@ -1,8 +1,7 @@
-package com.malakezzat.banquemisr.challenge05.Utils
+package com.malakezzat.banquemisr.challenge05.utils
 
 import com.malakezzat.banquemisr.challenge05.data.local.MovieDB
 import com.malakezzat.banquemisr.challenge05.data.local.MovieDetailsDB
-import com.malakezzat.banquemisr.challenge05.model.Genre
 import com.malakezzat.banquemisr.challenge05.model.MovieDetails
 import com.malakezzat.banquemisr.challenge05.model.Result
 

@@ -1,9 +1,8 @@
-package com.malakezzat.banquemisr.challenge05.Utils
+package com.malakezzat.banquemisr.challenge05.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 
 
 object NetworkUtils {

@@ -34,7 +34,7 @@ import androidx.compose.ui.text.style.TextMotion
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.malakezzat.banquemisr.challenge05.Utils.NetworkUtils
+import com.malakezzat.banquemisr.challenge05.utils.NetworkUtils
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen

@@ -2,7 +2,7 @@ package com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.malakezzat.banquemisr.challenge05.Utils.Converter
+import com.malakezzat.banquemisr.challenge05.utils.Converter
 import com.malakezzat.banquemisr.challenge05.data.local.MovieDB
 import com.malakezzat.banquemisr.challenge05.data.remote.ApiState
 import com.malakezzat.banquemisr.challenge05.data.repo.MoviesRepository

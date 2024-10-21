@@ -22,7 +22,7 @@ fun MovieScreen(nowPlayingScreenViewModel: NowPlayingScreenViewModel,
                 navController: NavController) {
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Movies") })
+            TopAppBar(title = { Text("Movies App") })
         },
         content = { paddingValues ->
             Box(

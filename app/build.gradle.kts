@@ -88,9 +88,10 @@ dependencies {
     // Coil for images
     implementation ("io.coil-kt:coil-compose:2.0.0")
 
-    // Hilt
-    implementation ("com.google.dagger:hilt-android:2.38.1")
-    kapt ("com.google.dagger:hilt-android-compiler:2.38.1")
+    // Koin Core
+    implementation ("io.insert-koin:koin-core:3.5.0")
+    implementation ("io.insert-koin:koin-android:3.5.0")
+    implementation ("io.insert-koin:koin-androidx-compose:3.5.0")
 
     // Unit Testing
     testImplementation ("junit:junit:4.13.2")
@@ -100,11 +101,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
 
     //Room
-    val room_version = "2.6.1"
-    implementation( "androidx.room:room-runtime:$room_version")
-    annotationProcessor ("androidx.room:room-compiler:$room_version")
+    implementation( "androidx.room:room-runtime:2.6.1n")
+    annotationProcessor ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.5.0")
-    kapt("androidx.room:room-compiler:$room_version")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     //SwipeRefresh
     implementation ("com.google.accompanist:accompanist-swiperefresh:0.30.1")

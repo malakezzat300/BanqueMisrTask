@@ -54,13 +54,14 @@ import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenV
 import com.malakezzat.banquemisr.challenge05.ui.lists.view.ImageWithShimmer
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 import kotlinx.coroutines.delay
+import org.koin.androidx.compose.getViewModel
 
 private const val TAG = "DetailsScreen"
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsScreen(
-    viewModel: DetailsScreenViewModel,
+    viewModel: DetailsScreenViewModel = getViewModel(),
     navController: NavController,
     movieId: Long
 ) {

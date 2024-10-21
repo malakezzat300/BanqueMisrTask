@@ -25,76 +25,63 @@ import com.malakezzat.banquemisr.challenge05.ui.PopularScreen
 import com.malakezzat.banquemisr.challenge05.ui.UpcomingScreen
 import com.malakezzat.banquemisr.challenge05.ui.details.view.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenViewModel
-import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenViewModelFactory
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.view.NowPlayingScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
-import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModelFactory
 import com.malakezzat.banquemisr.challenge05.ui.lists.popular.view.PopularScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
-import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModelFactory
 import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.view.UpcomingScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.viewmodel.UpcomingScreenViewModel
-import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.viewmodel.UpcomingScreenViewModelFactory
 import com.malakezzat.banquemisr.challenge05.ui.main.view.MovieScreen
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class MainActivity : ComponentActivity() {
-    private val repo by lazy {
-        MoviesRepositoryImpl.getInstance(
-            MoviesRemoteDataSourceImpl.
-            getInstance( RetrofitHelper.getInstance().create(MovieApiService::class.java)),
-            MoviesLocalDataSourceImpl(AppDatabase.getInstance(applicationContext)))
-    }
-    private val nowPlayingScreenViewModelFactory by lazy {
-        NowPlayingScreenViewModelFactory(repo)
-    }
-    private val popularScreenViewModelFactory by lazy {
-        PopularScreenViewModelFactory(repo)
-    }
-    private val upcomingScreenViewModelFactory by lazy {
-        UpcomingScreenViewModelFactory(repo)
-    }
-    private val detailsScreenViewModelFactory by lazy {
-        DetailsScreenViewModelFactory(repo)
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             MalakEzzatTaskTheme {
                 val navController = rememberNavController()
+
                 NavHost(
                     navController = navController,
                     startDestination = Main
                 ) {
                     composable<Main> {
-                        val nowPlayingViewModel : NowPlayingScreenViewModel = viewModel(factory = nowPlayingScreenViewModelFactory)
-                        val popularViewModel : PopularScreenViewModel = viewModel(factory = popularScreenViewModelFactory)
-                        val upcomingViewModel : UpcomingScreenViewModel = viewModel(factory = upcomingScreenViewModelFactory)
-                        MovieScreen(nowPlayingViewModel,popularViewModel,upcomingViewModel,navController)
+                        val nowPlayingViewModel: NowPlayingScreenViewModel = getViewModel()
+                        val popularViewModel: PopularScreenViewModel = getViewModel()
+                        val upcomingViewModel: UpcomingScreenViewModel = getViewModel()
+
+                        MovieScreen(
+                            nowPlayingViewModel,
+                            popularViewModel,
+                            upcomingViewModel,
+                            navController
+                        )
                     }
                     composable<NowPlayingScreen> {
-                        val viewModel : NowPlayingScreenViewModel = viewModel(factory = nowPlayingScreenViewModelFactory)
-                        NowPlayingScreen(viewModel,navController)
+                        val viewModel: NowPlayingScreenViewModel = getViewModel()
+                        NowPlayingScreen(viewModel, navController)
                     }
                     composable<PopularScreen> {
-                        val viewModel : PopularScreenViewModel = viewModel(factory = popularScreenViewModelFactory)
-                        PopularScreen(viewModel,navController)
+                        val viewModel: PopularScreenViewModel = getViewModel()
+                        PopularScreen(viewModel, navController)
                     }
                     composable<UpcomingScreen> {
-                        val viewModel : UpcomingScreenViewModel = viewModel(factory = upcomingScreenViewModelFactory)
-                        UpcomingScreen(viewModel,navController)
+                        val viewModel: UpcomingScreenViewModel = getViewModel()
+                        UpcomingScreen(viewModel, navController)
                     }
                     composable<DetailsScreen> {
                         val args = it.toRoute<DetailsScreen>()
-                        val viewModel : DetailsScreenViewModel = viewModel(factory = detailsScreenViewModelFactory)
-                        DetailsScreen(viewModel,navController,args.movieId)
+                        val viewModel: DetailsScreenViewModel = getViewModel()
+                        DetailsScreen(viewModel, navController, args.movieId)
                     }
                 }
             }
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable

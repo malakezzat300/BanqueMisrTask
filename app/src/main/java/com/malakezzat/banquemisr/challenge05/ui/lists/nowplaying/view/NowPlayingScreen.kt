@@ -41,13 +41,14 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
+import org.koin.androidx.compose.getViewModel
 
 private const val TAG = "NowPlayingScreen"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun NowPlayingScreen(
-    viewModel: NowPlayingScreenViewModel,
+    viewModel: NowPlayingScreenViewModel = getViewModel(),
     navController: NavController
 ) {
     val context = LocalContext.current

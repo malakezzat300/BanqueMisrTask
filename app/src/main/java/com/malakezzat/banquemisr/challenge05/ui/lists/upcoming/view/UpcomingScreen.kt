@@ -41,12 +41,13 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.upcoming.viewmodel.UpcomingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
+import org.koin.androidx.compose.getViewModel
 
 private const val TAG = "UpcomingScreen"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun UpcomingScreen(viewModel: UpcomingScreenViewModel,
+fun UpcomingScreen(viewModel: UpcomingScreenViewModel = getViewModel(),
                    navController: NavController
 ){
     val context = LocalContext.current

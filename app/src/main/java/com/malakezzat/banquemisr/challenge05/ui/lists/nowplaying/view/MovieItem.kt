@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.malakezzat.banquemisr.challenge05.model.Result
 import com.malakezzat.banquemisr.challenge05.ui.lists.view.ImageWithShimmer
+import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
 
 @Composable
 fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
@@ -73,7 +74,7 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                colors = listOf(Color.Transparent, Color.Black),
+                                colors = listOf(Color.Transparent, AppColors.RoseDark),
                                 startY = 100f
                             )
                         )

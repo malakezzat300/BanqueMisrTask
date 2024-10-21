@@ -8,7 +8,7 @@ import com.malakezzat.banquemisr.challenge05.model.MovieDetails
 import com.malakezzat.banquemisr.challenge05.model.MovieResponse
 import kotlinx.coroutines.flow.Flow
 
-class MoviesRepositoryImpl private constructor(
+class MoviesRepositoryImpl (
     private var moviesRemoteDataSource: MoviesRemoteDataSource,
     private var moviesLocalDataSource: MoviesLocalDataSource
 ):MoviesRepository {

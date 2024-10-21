@@ -41,12 +41,13 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NoInternetScreen
 import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.theme.AppColors
+import org.koin.androidx.compose.getViewModel
 
 private const val TAG = "PopularScreen"
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun PopularScreen(viewModel: PopularScreenViewModel,
+fun PopularScreen(viewModel: PopularScreenViewModel= getViewModel(),
                   navController: NavController
 ){
     val context = LocalContext.current

@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.storage)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -96,6 +97,10 @@ dependencies {
     // Unit Testing
     testImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.3")
+    testImplementation ("io.insert-koin:koin-test:3.5.0")
+    testImplementation ("io.mockk:mockk:1.12.3")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
 
     //NavController
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")

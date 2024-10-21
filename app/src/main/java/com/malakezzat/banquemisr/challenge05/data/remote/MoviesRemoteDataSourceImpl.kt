@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 
-class MoviesRemoteDataSourceImpl(var movieApiService: MovieApiService):
+class MoviesRemoteDataSourceImpl(private var movieApiService: MovieApiService):
     MoviesRemoteDataSource {
 
     private val TAG = "MoviesRemoteDataSourceImpl"
@@ -27,7 +27,7 @@ class MoviesRemoteDataSourceImpl(var movieApiService: MovieApiService):
         emit(response)
     }.catch { e ->
         Log.e(TAG, "Error fetching movies", e)
-        emit(MovieResponse())
+        throw e
     }
 
     override suspend fun getPopular(): Flow<MovieResponse>  = flow {
@@ -35,7 +35,7 @@ class MoviesRemoteDataSourceImpl(var movieApiService: MovieApiService):
         emit(response)
     }.catch { e ->
         Log.e(TAG, "Error fetching movies", e)
-        emit(MovieResponse())
+        throw e
     }
 
     override suspend fun getUpcoming(): Flow<MovieResponse>  = flow {
@@ -43,7 +43,7 @@ class MoviesRemoteDataSourceImpl(var movieApiService: MovieApiService):
         emit(response)
     }.catch { e ->
         Log.e(TAG, "Error fetching movies", e)
-        emit(MovieResponse())
+        throw e
     }
 
     override suspend fun getMovieDetails(movieId: Long): Flow<MovieDetails> = flow {
@@ -51,6 +51,6 @@ class MoviesRemoteDataSourceImpl(var movieApiService: MovieApiService):
         emit(response)
     }.catch { e ->
         Log.e(TAG, "Error fetching movie", e)
-        emit(MovieDetails())
+        throw e
     }
 }

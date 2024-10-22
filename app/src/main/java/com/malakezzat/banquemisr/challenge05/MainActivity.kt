@@ -22,6 +22,7 @@ import com.malakezzat.banquemisr.challenge05.ui.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.NowPlayingScreen
 import com.malakezzat.banquemisr.challenge05.ui.Main
 import com.malakezzat.banquemisr.challenge05.ui.PopularScreen
+import com.malakezzat.banquemisr.challenge05.ui.SplashScreen
 import com.malakezzat.banquemisr.challenge05.ui.UpcomingScreen
 import com.malakezzat.banquemisr.challenge05.ui.details.view.DetailsScreen
 import com.malakezzat.banquemisr.challenge05.ui.details.viewmodel.DetailsScreenViewModel
@@ -46,8 +47,11 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(
                     navController = navController,
-                    startDestination = Main
+                    startDestination = SplashScreen
                 ) {
+                    composable<SplashScreen> {
+                        SplashScreen(navController)
+                    }
                     composable<Main> {
                         val nowPlayingViewModel: NowPlayingScreenViewModel = getViewModel()
                         val popularViewModel: PopularScreenViewModel = getViewModel()

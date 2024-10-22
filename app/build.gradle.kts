@@ -117,4 +117,8 @@ dependencies {
     //lottie
     implementation ("com.airbnb.android:lottie:5.0.3")
     implementation ("com.airbnb.android:lottie-compose:5.0.3")
+
+    //ui test
+    androidTestImplementation ("androidx.compose.ui:ui-test-junit4:1.5.0")
+    androidTestImplementation ("androidx.compose.ui:ui-test-manifest:1.5.0")
 }

@@ -12,8 +12,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -55,6 +57,7 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
             modifier = Modifier
                 .padding(8.dp)
                 .width(250.dp)
+                .fillMaxHeight()
                 .clickable { onClick(movie.id) }
                 .shadow(6.dp),
             elevation = CardDefaults.cardElevation(12.dp),

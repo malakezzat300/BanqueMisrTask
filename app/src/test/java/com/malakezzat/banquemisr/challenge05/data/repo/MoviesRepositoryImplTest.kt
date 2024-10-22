@@ -12,6 +12,7 @@ import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -40,10 +41,8 @@ class MoviesRepositoryImplTest {
         repository2 = MoviesRepositoryImpl.getInstance(remoteDataSource,localDataSource)
     }
 
-
-
     @Test
-    fun getNowPlaying() = runBlocking {
+    fun getNowPlaying() = runTest {
         val nowPlayingMovies = MovieResponse(results = listOf())
         val nowPlayingMoviesFlow = flowOf(nowPlayingMovies)
         coEvery { remoteDataSource.getNowPlaying() } returns nowPlayingMoviesFlow
@@ -55,7 +54,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getPopular() = runBlocking {
+    fun getPopular() = runTest {
         val popularMovies = MovieResponse(results = listOf())
         val popularMoviesFlow = flowOf(popularMovies)
         coEvery { remoteDataSource.getPopular() } returns popularMoviesFlow
@@ -67,7 +66,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getUpcoming() = runBlocking {
+    fun getUpcoming() = runTest {
         val upcomingMovies = MovieResponse(results = listOf())
         val upcomingMoviesFlow = flowOf(upcomingMovies)
         coEvery { remoteDataSource.getUpcoming() } returns upcomingMoviesFlow
@@ -79,7 +78,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getMovieDetails() = runBlocking {
+    fun getMovieDetails() = runTest {
         val movieId = 1L
         val movieDetails = MovieDetails()
         val movieDetailsFlow = flowOf(movieDetails)
@@ -92,7 +91,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun insertMovie() = runBlocking {
+    fun insertMovie() = runTest {
         val movie = FakeData.fakeMovieDB1
         coEvery { localDataSource.insertMovie(movie) } returns Unit
 
@@ -102,7 +101,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun insertMovies() = runBlocking {
+    fun insertMovies() = runTest {
         val movies = FakeData.fakeMovieDBList
         coEvery { localDataSource.insertMovies(movies) } returns Unit
 
@@ -112,7 +111,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getNowPlayingMovies() = runBlocking {
+    fun getNowPlayingMovies() = runTest {
         val nowPlayingMovies = listOf<MovieDB>()
         val nowPlayingMoviesFlow = flowOf(nowPlayingMovies)
         coEvery { localDataSource.getNowPlayingMovies() } returns nowPlayingMoviesFlow
@@ -124,7 +123,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getPopularMovies() = runBlocking {
+    fun getPopularMovies() = runTest {
         val popularMovies = listOf<MovieDB>()
         val popularMoviesFlow = flowOf(popularMovies)
         coEvery { localDataSource.getPopularMovies() } returns popularMoviesFlow
@@ -136,7 +135,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getUpcomingMovies() = runBlocking {
+    fun getUpcomingMovies() = runTest {
         val upcomingMovies = listOf<MovieDB>()
         val upcomingMoviesFlow = flowOf(upcomingMovies)
         coEvery { localDataSource.getUpcomingMovies() } returns upcomingMoviesFlow
@@ -147,9 +146,9 @@ class MoviesRepositoryImplTest {
         coVerify { localDataSource.getUpcomingMovies() }
     }
 
-//
+
     @Test
-    fun insertMovieDetails() = runBlocking {
+    fun insertMovieDetails() = runTest {
         val movieDetails = MovieDetailsDB()
         coEvery { localDataSource.insertMovieDetails(movieDetails) } returns Unit
 
@@ -159,7 +158,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getMovieDetailsById() = runBlocking {
+    fun getMovieDetailsById() = runTest {
         val movieId = 1L
         val movieDetails = MovieDetailsDB()
         val movieDetailsFlow = flowOf(movieDetails)

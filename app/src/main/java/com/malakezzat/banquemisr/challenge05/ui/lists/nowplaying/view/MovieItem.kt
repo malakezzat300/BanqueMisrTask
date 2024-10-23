@@ -12,6 +12,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -55,8 +56,6 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
     ) {
         Card(
             modifier = Modifier
-                .padding(8.dp)
-                .width(250.dp)
                 .fillMaxHeight()
                 .clickable { onClick(movie.id) }
                 .shadow(6.dp),
@@ -69,34 +68,43 @@ fun MovieItem(movie: Result, onClick: (Long) -> Unit) {
                     contentDescription = movie.title,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(375.dp)
-                )
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            Brush.verticalGradient(
-                                colors = listOf(Color.Transparent, AppColors.RoseDark),
-                                startY = 100f
+                        .aspectRatio(2f / 3f)
+                ){ modifier ->
+                    Column(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .background(
+                                Brush.verticalGradient(
+                                    colors = listOf(
+                                        Color.Transparent,
+                                        AppColors.RoseDark.copy(alpha = 0.6f),
+                                        AppColors.RoseDark
+                                    ),
+                                    startY = 0f,
+                                )
                             )
+                            .padding(8.dp)
+                    ) {
+                        Text(
+                            text = movie.title,
+                            style = MaterialTheme.typography.headlineSmall.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier.padding(top = 8.dp),
+                            color = AppColors.WhiteLight
                         )
-                        .padding(8.dp)
-                ) {
-                    Text(
-                        text = movie.title,
-                        style = MaterialTheme.typography.headlineSmall.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = "\uD83D\uDCC5 ${movie.release_date}",
-                        style = MaterialTheme.typography.bodyMedium.copy(
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "\uD83D\uDCC5 ${movie.release_date}",
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = AppColors.WhiteLight
                         )
-                    )
+                    }
+
                 }
             }
         }

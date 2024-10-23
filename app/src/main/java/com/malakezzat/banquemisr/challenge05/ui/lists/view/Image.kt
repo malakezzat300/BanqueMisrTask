@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
@@ -27,7 +28,7 @@ import coil.request.ImageRequest
 import com.malakezzat.banquemisr.challenge05.R
 
 @Composable
-fun ImageWithShimmer(imageUrl: String, contentDescription: String, modifier: Modifier = Modifier) {
+fun ImageWithShimmer(imageUrl: String, contentDescription: String, modifier: Modifier = Modifier,content: @Composable (Modifier) -> Unit = {} ) {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
             .data(imageUrl)
@@ -48,7 +49,9 @@ fun ImageWithShimmer(imageUrl: String, contentDescription: String, modifier: Mod
         if (painter.state is AsyncImagePainter.State.Loading) {
             ShimmerEffect(modifier = Modifier.matchParentSize())
         }
+        content( Modifier.align(Alignment.BottomCenter) )
     }
+
 }
 
 @Composable

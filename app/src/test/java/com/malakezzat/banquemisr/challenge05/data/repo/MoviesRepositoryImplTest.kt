@@ -42,7 +42,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getNowPlaying() = runTest {
+    fun `getNowPlaying returns movies successfully from remote`() = runTest {
         val nowPlayingMovies = MovieResponse(results = listOf())
         val nowPlayingMoviesFlow = flowOf(nowPlayingMovies)
         coEvery { remoteDataSource.getNowPlaying() } returns nowPlayingMoviesFlow
@@ -54,7 +54,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getPopular() = runTest {
+    fun `getPopular returns movies successfully from remote`() = runTest {
         val popularMovies = MovieResponse(results = listOf())
         val popularMoviesFlow = flowOf(popularMovies)
         coEvery { remoteDataSource.getPopular() } returns popularMoviesFlow
@@ -66,7 +66,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getUpcoming() = runTest {
+    fun `getUpcoming returns movies successfully from remote`() = runTest {
         val upcomingMovies = MovieResponse(results = listOf())
         val upcomingMoviesFlow = flowOf(upcomingMovies)
         coEvery { remoteDataSource.getUpcoming() } returns upcomingMoviesFlow
@@ -78,7 +78,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getMovieDetails() = runTest {
+    fun `getMovieDetails returns details successfully from remote`() = runTest {
         val movieId = 1L
         val movieDetails = MovieDetails()
         val movieDetailsFlow = flowOf(movieDetails)
@@ -91,7 +91,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun insertMovie() = runTest {
+    fun `insertMovie inserts movie to local database`() = runTest {
         val movie = FakeData.fakeMovieDB1
         coEvery { localDataSource.insertMovie(movie) } returns Unit
 
@@ -101,7 +101,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun insertMovies() = runTest {
+    fun `insertMovies inserts multiple movies to local database`() = runTest {
         val movies = FakeData.fakeMovieDBList
         coEvery { localDataSource.insertMovies(movies) } returns Unit
 
@@ -111,7 +111,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getNowPlayingMovies() = runTest {
+    fun `getNowPlayingMovies returns movies from local database`() = runTest {
         val nowPlayingMovies = listOf<MovieDB>()
         val nowPlayingMoviesFlow = flowOf(nowPlayingMovies)
         coEvery { localDataSource.getNowPlayingMovies() } returns nowPlayingMoviesFlow
@@ -123,7 +123,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getPopularMovies() = runTest {
+    fun `getPopularMovies returns movies from local database`() = runTest {
         val popularMovies = listOf<MovieDB>()
         val popularMoviesFlow = flowOf(popularMovies)
         coEvery { localDataSource.getPopularMovies() } returns popularMoviesFlow
@@ -135,7 +135,7 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getUpcomingMovies() = runTest {
+    fun `getUpcomingMovies returns movies from local database`() = runTest {
         val upcomingMovies = listOf<MovieDB>()
         val upcomingMoviesFlow = flowOf(upcomingMovies)
         coEvery { localDataSource.getUpcomingMovies() } returns upcomingMoviesFlow
@@ -146,9 +146,8 @@ class MoviesRepositoryImplTest {
         coVerify { localDataSource.getUpcomingMovies() }
     }
 
-
     @Test
-    fun insertMovieDetails() = runTest {
+    fun `insertMovieDetails inserts movie details to local database`() = runTest {
         val movieDetails = MovieDetailsDB()
         coEvery { localDataSource.insertMovieDetails(movieDetails) } returns Unit
 
@@ -158,16 +157,28 @@ class MoviesRepositoryImplTest {
     }
 
     @Test
-    fun getMovieDetailsById() = runTest {
+    fun `getMovieDetailsById returns movie details from local database`() = runTest {
         val movieId = 1L
         val movieDetails = MovieDetailsDB()
         val movieDetailsFlow = flowOf(movieDetails)
         coEvery { localDataSource.getMovieDetailsById(movieId) } returns movieDetailsFlow
 
-        val result = repository2.getMovieDetailsById(movieId)
+        val result = repository.getMovieDetailsById(movieId)
 
         assertEquals(movieDetailsFlow, result)
         coVerify { localDataSource.getMovieDetailsById(movieId) }
+    }
+
+    @Test
+    fun `getNowPlaying returns empty list when no movies are available`() = runTest {
+        val emptyMovies = MovieResponse(results = listOf())
+        val emptyMoviesFlow = flowOf(emptyMovies)
+        coEvery { remoteDataSource.getNowPlaying() } returns emptyMoviesFlow
+
+        val result = repository.getNowPlaying()
+
+        assertEquals(emptyMoviesFlow, result)
+        coVerify { remoteDataSource.getNowPlaying() }
     }
 
     @After

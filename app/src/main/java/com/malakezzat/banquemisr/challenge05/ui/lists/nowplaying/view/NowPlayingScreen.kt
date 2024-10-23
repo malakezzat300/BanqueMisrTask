@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -118,6 +119,7 @@ fun NowPlayingScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .matchParentSize()
             ) {
                 Text(
                     "Now Playing \uD83D\uDCFD",
@@ -135,9 +137,11 @@ fun NowPlayingScreen(
                         .fillMaxSize()
                 ) {
                     items(nowPlayingResponse.results.size) { movie ->
+                        Spacer(modifier = Modifier.width(6.dp))
                         MovieItem(nowPlayingResponse.results[movie]) { movieId ->
                             navController.navigate(DetailsScreen(movieId))
                         }
+                        Spacer(modifier = Modifier.width(6.dp))
                     }
                 }
             }
@@ -146,7 +150,6 @@ fun NowPlayingScreen(
             Log.i(TAG, "NowPlayingScreen: No Internet")
             NoInternetScreen(modifier = Modifier.align(Alignment.Center))
         }
-
         PullRefreshIndicator(isRefreshing, pullRefreshState, Modifier.align(Alignment.TopCenter))
     }
 }

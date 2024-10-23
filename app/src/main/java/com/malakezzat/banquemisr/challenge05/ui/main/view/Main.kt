@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.malakezzat.banquemisr.challenge05.ui.lists.nowplaying.viewmodel.NowPlayingScreenViewModel
 import com.malakezzat.banquemisr.challenge05.ui.lists.popular.viewmodel.PopularScreenViewModel
@@ -29,7 +30,7 @@ fun MovieScreen(nowPlayingScreenViewModel: NowPlayingScreenViewModel,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-
+                    .padding(bottom = 8.dp)
             ) {
                 MovieTabs(nowPlayingScreenViewModel,
                     popularScreenViewModel,

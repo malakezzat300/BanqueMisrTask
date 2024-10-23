@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -106,7 +107,11 @@ fun UpcomingScreen(viewModel: UpcomingScreenViewModel = getViewModel(),
                 )
             }
         } else if (upcomingResponse.results.isNotEmpty()) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .matchParentSize()
+            ) {
                 Text(
                     "Upcoming ⏭\uFE0F",
                     modifier = Modifier.padding(8.dp),
@@ -120,11 +125,12 @@ fun UpcomingScreen(viewModel: UpcomingScreenViewModel = getViewModel(),
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 LazyRow {
-
                     items(upcomingResponse.results.size) { movie ->
+                        Spacer(modifier = Modifier.width(6.dp))
                         MovieItem(upcomingResponse.results[movie]) { movieId ->
                             navController.navigate(DetailsScreen(movieId))
                         }
+                        Spacer(modifier = Modifier.width(6.dp))
                     }
                 }
             }
